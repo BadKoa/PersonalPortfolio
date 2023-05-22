@@ -21,8 +21,8 @@ namespace firsttrywebsite
             services.AddMvc();
             services.AddSession();
             
-            //services.AddDbContext<UserContext>(options =>
-   //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));///database
+            services.AddDbContext<UserContext>(options =>
+   options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));///database
 
 
         }
@@ -54,8 +54,8 @@ namespace firsttrywebsite
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "template",
-                    pattern: "template",
+                    name: "LIP",
+                    pattern: "LIP",
                     defaults: new { controller = "Home", action = "Index" });
                 endpoints.MapDefaultControllerRoute();
             });

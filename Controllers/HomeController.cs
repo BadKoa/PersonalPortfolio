@@ -6,8 +6,14 @@ namespace firsttrywebsite.Controllers
 {
     public class HomeController : Controller
     {
-        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
+        //[ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
 
+        private readonly UserContext _context;
+
+        public HomeController(UserContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -16,13 +22,12 @@ namespace firsttrywebsite.Controllers
         [HttpGet]
         public IActionResult GetMails(string name, string email)
         {
+
             var user = new User { Name = name, Email = email };
 
-            using(var context = new UserContext())
-            {
-                context.Users.Add(user);
-                context.SaveChanges();
-            }
+            _context.Users.Attach(user);
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
             //mails.Name?.ToString();
             //return View();

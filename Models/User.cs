@@ -14,7 +14,7 @@ namespace firsttrywebsite.Models
 
         public string DbPath { get;}
 
-        public UserContext()
+        public UserContext(DbContextOptions<UserContext> options):base(options)
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
@@ -22,11 +22,15 @@ namespace firsttrywebsite.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
+
+
     }
     
     public class User
     {
-        [Key, Required]
+
+        [Key]
+        public int Id { get; set; }
         public string ?Name { get; set; }
         [Required]
         public string ?Email { get; set; }
